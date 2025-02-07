@@ -56,8 +56,6 @@ extension MotionService {
     
     func handleBarometerData(_ data: CMAltitudeData) {
         let measuredAltitude = data.relativeAltitude.doubleValue
-        let currentTime = Date()
-        lastUpdateTime = currentTime
         
         kalmanFilter.update(with: measuredAltitude)
         

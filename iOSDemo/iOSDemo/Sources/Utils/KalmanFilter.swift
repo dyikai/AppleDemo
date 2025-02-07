@@ -17,7 +17,6 @@ class KalmanFilter {
     var deltaTime: TimeInterval = 1
     let threshold: Double = 0.01
     
-    var lastAltitude: Double?
     var lastUpdateTime: Date?
     
     init(processNoise: Double, measurementNoise: Double, biasProcessNoise: Double) {
@@ -160,7 +159,5 @@ class KalmanFilter {
                 P[i][j] -= K_i * HP_j
             }
         }
-        
-        lastAltitude = altitude
     }
 }

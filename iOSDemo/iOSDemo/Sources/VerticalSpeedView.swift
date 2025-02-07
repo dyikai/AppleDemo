@@ -12,7 +12,7 @@ struct VerticalSpeedView: View {
         VStack(spacing: 10) {
             Text("Altitude: \(kalmanFilter.altitude)")
             
-            Text("VerticalSpeed: \(kalmanFilter.verticalSpeed) m/s")
+            Text("VerticalSpeed: \(kalmanFilter.verticalSpeed * 3600) m/h")
         }
     }
 }
