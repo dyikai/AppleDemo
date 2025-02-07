@@ -3,23 +3,25 @@ import Observation
 
 @Observable
 class KalmanFilter {
-    static let shared = KalmanFilter(processNoise: 0.0005, measurementNoise: 0.05, biasProcessNoise: 0.005)
+    static let shared = KalmanFilter(processNoise: 0.0005, measurementNoise: 0.01, biasProcessNoise: 0.005)
     
     var altitude: Double
     var verticalSpeed: Double = 0
+    var baro: Double = 0
     var bias: Double
     var P: [[Double]]
 
     var processNoise: Double
     var measurementNoise: Double
     var biasProcessNoise: Double
-    let threshold: Double = 0
+    var deltaTime: TimeInterval = 1
+    let threshold: Double = 0.01
     
     var lastAltitude: Double?
     var lastUpdateTime: Date?
     
     init(processNoise: Double, measurementNoise: Double, biasProcessNoise: Double) {
-        self.altitude = 0
+        self.altitude = -2
         self.bias = 0.0
         self.processNoise = processNoise
         self.measurementNoise = measurementNoise
@@ -27,16 +29,13 @@ class KalmanFilter {
         
         // 初始化 3x3 协方差矩阵
         self.P = [
-            [1.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0],
-            [0.0, 0.0, 1.0]
+            [1.0, 0.0],
+            [0.0, 1.0],
         ]
     }
     
     func predict() {
-        // 状态转移模型（常数模型）：
-        // altitude_new = altitude
-        // bias_new = bias
+        altitude += deltaTime * verticalSpeed
         
         // 状态转移矩阵 F 为单位矩阵，所以状态不变。
         // 过程噪声矩阵 Q：
@@ -52,11 +51,10 @@ class KalmanFilter {
         let currentTime = Date()
         
         // 计算当前时间与上一次更新时间的时间间隔（若无则取 1.0 秒）
-        let dt: Double
         if let lastTime = lastUpdateTime {
-            dt = currentTime.timeIntervalSince(lastTime)
+            deltaTime = currentTime.timeIntervalSince(lastTime)
         } else {
-            dt = 1.0
+            deltaTime = 1.0
         }
         
         predict()
@@ -89,8 +87,8 @@ class KalmanFilter {
         P[1][1] = (1 - K1) * P[1][1]
         
         // 计算垂直速度：利用两次更新的高度差和时间间隔（可选平滑处理）
-        if let lastAlt = lastAltitude, dt > 0 {
-            verticalSpeed = (altitude - lastAlt) / dt
+        if let lastAlt = lastAltitude, deltaTime > 0 {
+            verticalSpeed = (altitude - lastAlt) / deltaTime
         }
         
         // 更新辅助变量

@@ -61,7 +61,7 @@ extension MotionService {
         
         kalmanFilter.update(with: measuredAltitude)
         
-        let printStr = String(format: "\(Date()) - Updating Barometer Data - Estimated Height: %.3f m, Vertical Speed: %.3f m/s, Baro: %.2f kpa", kalmanFilter.altitude, kalmanFilter.verticalSpeed, data.pressure.doubleValue * 10)
+        let printStr = String(format: "\(Date()) - Updating Barometer Data - Estimated Height: %.3f m, Vertical Speed: %.3f m/s, Baro: %.2f hpa", kalmanFilter.altitude, kalmanFilter.verticalSpeed, data.pressure.doubleValue * 10)
         debugPrint(printStr)
     }
 }
