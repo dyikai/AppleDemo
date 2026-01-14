@@ -27,7 +27,8 @@ struct iOSDemoApp: App {
         WindowGroup {
 //            ContentView()
 //            AcceleratorView()
-            VerticalSpeedView()
+//            VerticalSpeedView()
+            TmpView()
         }
         .modelContainer(sharedModelContainer)
     }
