@@ -25,7 +25,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		353EC9B72D15643900E4E6C8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		355C23E02AD5553F00D79F58 /* SwiftDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		355C23E32AD5553F00D79F58 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				355C23E32AD5553F00D79F58 /* main.swift */,
-				353EC9B72D15643900E4E6C8 /* MyPlayground.playground */,
 			);
 			path = SwiftDemo;
 			sourceTree = "<group>";
